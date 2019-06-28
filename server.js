@@ -10,21 +10,19 @@ app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+var arrayPlayersObject = [];
+
 app.use('/', (req, res) => {
 
        res.render('index.html');
 
 });
 
-io.on('connection', (socket)=>{
+io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
 
-       socket.on('msg', (msg)=>{
+       arrayPlayersObject.push(new player(400, 400, socket.id));
 
-              console.log(msg);
-
-              socket.broadcast.emit('msg', msg);
-
-       });
+       console.log(socket.id)
 
 });
 
