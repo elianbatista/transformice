@@ -16,12 +16,6 @@ app.use('/', (req, res) => {
 
 });
 
-playersObject = {
-
-       id: 
-
-}
-
 io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
 
        console.log(socket.id)
