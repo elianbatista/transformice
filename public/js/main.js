@@ -1,13 +1,36 @@
+p5.disableFriendlyErrors = true;
+let Engine;
+let World;
+let Bodies;
 function setup(){
-    createCanvas(windowWidth,windowHeight);
+    createCanvas(800, 800);
+    rectMode(CENTER)
+    Engine = Matter.Engine;
+    World = Matter.World;
+    Bodies = Matter.Bodies;
+    
+    engine = Engine.create();
 }
+function drawPlayers(){
+    for(let p of players){
+      p.display();
+      p.update();
+  
+    }
+  }
+  function drawParedes(){
+    for(let p of paredes){
+      p.display();
+  
+    }
+  }
 function draw(){
+    Matter.Engine.update(engine);
     background(51);
-    fill(255);
-    const rx = width/2;
-    const ry = height/2;
-
-    const x = rx + 0.2*rx*cos(frameCount/10);
-    const y = ry + 0.2*ry*sin(frameCount/10)
-    circle(x, y, 50);
+    
+    
+    
+    drawPlayers();
+    drawParedes();
+ 
 }
