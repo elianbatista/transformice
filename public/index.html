@@ -18,20 +18,16 @@
               <!-- Fim dos Includes do CSS -->
 
               <title>Transformice</title>
+
        </head>
+
        <body>
-
-              <h1>Transformice</h1>
-
-              <div id="mensagens"></div>
-
-              <input type="text">
 
               <!-- IMPORTAÇÃO DAS BIBLIOTECAS JAVASCRIPT -->
 
               <script src="/socket.io/socket.io.js"></script>
 
-              <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+              <script src="js/jquery/jquery.min.js"></script>
              
               <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.12.0/matter.min.js"></script>
 
@@ -41,41 +37,7 @@
 
               <script src="js/main.js"></script>
               
-              <script>
-              
-                     const socket = io();
-
-                     socket.on('connect', function(){
-
-                            $('#mensagens').append('conectado com o id: '+socket.id+'<br/>');
-
-                            socket.emit('msg', 'Estou conectado ' + socket.id);
-
-                     });
-
-                     socket.on('msg', function(msg){
-
-                            $("#mensagens").append(msg+'<br/>');
-
-                     });
-
-                     $(function(){
-
-                            $("input").keydown(function(key){
-
-                                   if(key.keyCode === 13){
-
-                                          socket.emit('msg', $(this).val());
-
-                                          $(this).val('');
-
-                                   }
-
-                            });
-
-                     })
-
-              </script>
+              <script src="js/socketFrontEnd.js"></script>
               
        </body>
 </html>

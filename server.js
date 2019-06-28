@@ -16,15 +16,15 @@ app.use('/', (req, res) => {
 
 });
 
-io.on('connection', (socket)=>{
+playersObject = {
 
-       socket.on('msg', (msg)=>{
+       id: 
 
-              console.log(msg);
+}
 
-              socket.broadcast.emit('msg', msg);
+io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
 
-       });
+       console.log(socket.id)
 
 });
 
