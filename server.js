@@ -12,6 +12,12 @@ app.set('view engine', 'html');
 
 var arrayPlayersObject = [];
 
+var playerProt = function (x, y, id){
+       this.x = x,
+       this.y = y,
+       this.id = id
+};
+
 app.use('/', (req, res) => {
 
        res.render('index.html');
@@ -20,9 +26,11 @@ app.use('/', (req, res) => {
 
 io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
 
-       arrayPlayersObject.push(new player(400, 400, socket.id));
+       arrayPlayersObject.push(new playerProt(Math.random()*500, Math.random()*500, socket.id));
 
-       console.log(socket.id)
+       console.log(socket.id);
+
+       socket.emit('mensagem', arrayPlayersObject);
 
 });
 
