@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+       <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <meta http-equiv="X-UA-Compatible" content="ie=edge">
+              <title>Transformice</title>
+       </head>
+       <body>
+
+              <h1>Transformice</h1>
+
+              <div id="mensagens"></div>
+
+              <input type="text">
+
+              <script src="/socket.io/socket.io.js"></script>
+
+              <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
+              <script>
+              
+                     const socket = io();
+
+                     socket.on('connect', function(){
+
+                            $('#mensagens').append('conectado com o id: '+socket.id+'<br/>');
+
+                            socket.emit('msg', 'Estou conectado ' + socket.id);
+
+                     });
+
+                     socket.on('msg', function(msg){
+
+                            $("#mensagens").append(msg+'<br/>');
+
+                     });
+
+                     $(function(){
+
+                            $("input").keydown(function(key){
+
+                                   if(key.keyCode === 13){
+
+                                          socket.emit('msg', $(this).val());
+
+                                          $(this).val('');
+
+                                   }
+
+                            });
+
+                     })
+
+              </script>
+              
+       </body>
+</html>
