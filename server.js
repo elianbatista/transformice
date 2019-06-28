@@ -1,10 +1,18 @@
-const app = require('express')();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const express = require('express');
+const path = require('path');
 
-app.get('/', (req,res)=>{
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
-       res.sendFile(__dirname+'/index.html');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+app.use('/', (req, res) => {
+
+       res.render('index.html');
 
 });
 
@@ -20,8 +28,4 @@ io.on('connection', (socket)=>{
 
 });
 
-http.listen(3000, function(){
-
-       console.log('Listening on port 3000');
-
-});
+server.listen(3000);
