@@ -1,28 +1,26 @@
 class player{
-    constructor(x, y, id, proto){
+    constructor(x, y, id){
         this.id = id;
         this.r = 62;
-        this.proto = proto;
-        if(proto){
-            this.pos = createVector(x,y);
-        }else{
-            this.b =  Bodies.circle(x,y,this.r, 8);
-            this.b.collisionFilter.mask = 0x0001;
-            // this.b.isStatic = true;
-            World.add(engine.world, this.b);
-        }
-        
+
       
+        this.b =  Bodies.circle(x,y,this.r, 8);
+        // this.b.isStatic = true;
+        World.add(engine.world, this.b);
+      
+        
     }
     aplyForce(force){
-        Matter.Body.applyForce(this.b, this.b.position,  force)
+        console.log(force);
+        console.log(Matter.Body.applyForce(this.b, this.b.position,  force))
     }
     checkInput(){
    
         if (keyIsDown(LEFT_ARROW)) {
-           this.aplyForce([-0.0000000001, 0]);
+  
+           this.aplyForce(new Matter.Vector.create(-0.01,0));
         }else if(keyIsDown(RIGHT_ARROW)) {
-
+          this.aplyForce(new Matter.Vector.create(0.01,0));
         }
 
         if (keyIsDown(UP_ARROW)) {
@@ -36,22 +34,24 @@ class player{
         this.checkInput();
     }
     display(id){
-      push();
-        if(this.proto){
-          translate(this.pos.x,this.pos.y);
-        }else{
-          translate(this.b.position.x,this.b.position.y);
-        }
-        
+     // push();
        // rotate(this.b.angle);
-        if(id == this.id){
-          fill(255,0,0);
-        }else{
-          fill(0,255,0);
-        }
-        
-        circle(0,0,this.r*2);
-      
-      pop();
+        fill(255,0,0);
+        circle(this.b.position.x,this.b.position.y,this.r*2);
+    
+      //pop();
     }
+}
+class protoPlayer{
+  constructor(x, y, id){
+    this.pos = createVector(x,y);
+    this.r = 62;
+    this.id = id;
+  }
+  display(){
+    fill(0,255,0);
+    circle(this.pos.x,this.pos.y,this.r*2);
+   
+  }
+
 }

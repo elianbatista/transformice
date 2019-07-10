@@ -33,6 +33,11 @@ io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
        socket.emit('mensagem', arrayPlayersObject);
 
 });
+setInterval(heartbeat, 33);
+
+function heartbeat() {
+  io.sockets.emit('heartbeat', blobs);
+}
 io.on('disconnect', function() {
        console.log("Client has disconnected");
 });
