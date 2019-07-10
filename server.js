@@ -30,10 +30,6 @@ io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
        arrayPlayersObject.push(new playerProt(Math.random()*500, Math.random()*500, socket.id));
 
        socket.emit('mensagem', arrayPlayersObject);
-
-});
-io.on('disconnect', function() {
-       console.log("Client has disconnected");
        socket.on('disconnect', function(){
 
               console.log("Desconectou: " + socket.id);
@@ -47,11 +43,16 @@ io.on('disconnect', function() {
                      }
 
               }
-
               console.log(arrayPlayersObject);
+
+       });
+       socket.on('update', (playerX, playerY)=> {
+
+              console.log(playerX, playerY);
 
        });
 
 });
+
 
 server.listen(3000);

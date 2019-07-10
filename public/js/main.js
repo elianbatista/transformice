@@ -1,3 +1,5 @@
+
+
 //p5.disableFriendlyErrors = true;
 
 var Engine;
@@ -58,10 +60,14 @@ function drawPlayers(){
 }
 
 function draw(){
-    Matter.Engine.update(engine);
     background(51);
+    Matter.Engine.update(engine);
+    
    
     drawPlayers();
     limites.display()
-
+    if(playerPrincipal){
+        var p = playerPrincipal.b.position;
+        socket.emit('update',p.x,p.y);
+    }
 }

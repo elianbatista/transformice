@@ -2,8 +2,6 @@ class player{
     constructor(x, y, id){
         this.id = id;
         this.r = 62;
-
-      
         this.b =  Bodies.circle(x,y,this.r, 8);
         // this.b.isStatic = true;
         World.add(engine.world, this.b);
@@ -11,8 +9,7 @@ class player{
         
     }
     aplyForce(force){
-        console.log(force);
-        console.log(Matter.Body.applyForce(this.b, this.b.position,  force))
+        Matter.Body.applyForce(this.b, this.b.position,  force);
     }
     checkInput(){
    
