@@ -19,10 +19,20 @@ function setup(){
     engine = Engine.create();
 
     socket.on('mensagem', function(mensagem){
+
         createPlayers(mensagem);
+      
     });
+    
 
     limites = new limite(0,0,width,height,10);
+    
+}
+function atualizarPlayers(protPlayer){
+    for(let i =0 ; i < protPlayer.length-1 ; i++){
+        players[i].pos.x = protPlayer[i].x;
+        players[i].pos.y = protPlayer[i].y;
+    }
 }
 function createPlayers(protPlayer){
     for(let p of protPlayer){
@@ -45,14 +55,12 @@ function drawPlayers(){
             p.display();
         }
     }
-
 }
 
 function draw(){
     Matter.Engine.update(engine);
     background(51);
    
- 
     drawPlayers();
     limites.display()
 
