@@ -20,9 +20,11 @@ app.use('/', (req, res) => {
 
 io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
 
-       arrayPlayersObject.push(new player(400, 400, socket.id));
+       //arrayPlayersObject.push(new player(400, 400, socket.id));
 
-       console.log(socket.id)
+       console.log(socket.id);
+
+       socket.emit('mensagem', 'teste');
 
 });
 
