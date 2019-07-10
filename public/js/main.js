@@ -19,12 +19,13 @@ function setup(){
     engine = Engine.create();
 
     socket.on('mensagem', function(mensagem){
+
         createPLayers(mensagem);
       
     });
+
     limites = new limite(0,0,width,height,10);
     
-
 }
 function createPLayers(protPlayer){
     for(let p of protPlayer){

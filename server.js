@@ -27,25 +27,28 @@ app.use('/', (req, res) => {
 io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
        //arrayPlayersObject.push(new player(400, 400, socket.id));
 
-       console.log(socket.id);
-
-       socket.emit('mensagem', 'teste');
-
        arrayPlayersObject.push(new playerProt(Math.random()*500, Math.random()*500, socket.id));
-
-       console.log(socket.id);
 
        socket.emit('mensagem', arrayPlayersObject);
 
-});
-io.on('disconnect', function() {
-       console.log("Client has disconnected");
+       socket.on('disconnect', function(){
+
+              console.log("Desconectou: " + socket.id);
+
+              for(var i = 0; i < arrayPlayersObject.length; i++){
+
+                     if(arrayPlayersObject[i]['id'] == socket.id){
+
+                            arrayPlayersObject.splice(i, 1);
+
+                     }
+
+              }
+
+              console.log(arrayPlayersObject);
+
+       });
+
 });
 
 server.listen(3000);
-
-io.on('disconnect', (socket)=>{
-
-       console.log("O Socket Disconectou");
-
-});
