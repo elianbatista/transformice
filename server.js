@@ -38,6 +38,9 @@ io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
        socket.emit('mensagem', arrayPlayersObject);
 
 });
+io.on('disconnect', function() {
+       console.log("Client has disconnected");
+});
 
 server.listen(3000);
 

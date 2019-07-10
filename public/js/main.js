@@ -4,7 +4,10 @@ var Engine;
 var World;
 var Bodies;
 var teste;
+
 var players = [];
+
+var limites;
 function setup(){
     createCanvas(800, 800);
     //frameRate(2);
@@ -19,12 +22,17 @@ function setup(){
         createPLayers(mensagem);
       
     });
+    limites = new limite(0,0,width,height,10);
     
 
 }
 function createPLayers(protPlayer){
     for(let p of protPlayer){
-        players.push(new player(p.x,p.y,p.id));
+        if(p.id == socket.id){
+            players.push(new player(p.x,p.y,p.id,false));
+        }else{
+            players.push(new player(p.x,p.y,p.id,true));
+        }
     }
 }
 function drawPlayers(){
@@ -37,23 +45,17 @@ function drawPlayers(){
         }
     }
 }
-  /*
-function drawParedes(){
-    for(let p of paredes){
-      p.display();
-  
-    }
-}
-*/
 
 function draw(){
     Matter.Engine.update(engine);
     background(51);
+    console.log(frameRate());
     //console.log(players);
     //console.log(socket.id)
     //console.log("A");
     
     drawPlayers();
+    limites.display()
    // fill(255);
     //circle(400,400,16);
     
