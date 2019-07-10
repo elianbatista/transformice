@@ -41,6 +41,8 @@ io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
 
               console.log("Desconectou: " + socket.id);
 
+              socket.broadcast.emit('disconectPlayer', socket.id);
+
               for(var i = 0; i < arrayPlayersObject.length; i++){
 
                      if(arrayPlayersObject[i]['id'] == socket.id){
@@ -50,7 +52,6 @@ io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
                      }
 
               }
-              
 
        });
 

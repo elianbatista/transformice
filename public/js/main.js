@@ -47,7 +47,20 @@ function setup(){
         players.push(new protoPlayer(newSocket.x, newSocket.y, newSocket.id));
 
     });
-    
+
+    socket.on('disconectPlayer', (disconectedID)=>{
+
+        for(var i = 0; i < players.length; i++){
+
+            if(players[i]['id'] == disconectedID){
+
+                   players.splice(i, 1);
+
+            }
+
+        }
+
+    });
 
     limites = new limite(0,0,width,height,10);
     
