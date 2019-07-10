@@ -1,13 +1,62 @@
-function setup(){
-    createCanvas(windowWidth,windowHeight);
-}
-function draw(){
-    background(51);
-    fill(255);
-    const rx = width/2;
-    const ry = height/2;
+//p5.disableFriendlyErrors = true;
 
-    const x = rx + 0.2*rx*cos(frameCount/10);
-    const y = ry + 0.2*ry*sin(frameCount/10)
-    circle(x, y, 50);
+var Engine;
+var World;
+var Bodies;
+var teste;
+var players = [];
+function setup(){
+    createCanvas(800, 800);
+    //frameRate(2);
+    rectMode(CENTER)
+    Engine = Matter.Engine;
+    World = Matter.World;
+    Bodies = Matter.Bodies;
+    
+    engine = Engine.create();
+
+    socket.on('mensagem', function(mensagem){
+        createPLayers(mensagem);
+      
+    });
+    
+
+}
+function createPLayers(protPlayer){
+    for(let p of protPlayer){
+        players.push(new player(p.x,p.y,p.id));
+    }
+}
+function drawPlayers(){
+    if(players.length>0){
+        for(let p of players){
+
+            p.display(socket.id);
+            p.update();
+    
+        }
+    }
+}
+  /*
+function drawParedes(){
+    for(let p of paredes){
+      p.display();
+  
+    }
+}
+*/
+
+function draw(){
+    Matter.Engine.update(engine);
+    background(51);
+    //console.log(players);
+    //console.log(socket.id)
+    //console.log("A");
+    
+    drawPlayers();
+   // fill(255);
+    //circle(400,400,16);
+    
+  //  drawParedes();
+ 
 }
