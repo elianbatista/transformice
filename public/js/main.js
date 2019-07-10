@@ -25,6 +25,28 @@ function setup(){
         createPlayers(mensagem);
       
     });
+
+    socket.on('updatePositions', (id, playerX, playerY)=>{
+
+        for(let p of players){
+
+            if(p.id == id){
+                
+                p.pos.x = playerX;
+
+                p.pos.y = playerY;
+                
+            }
+
+        }
+
+    });
+
+    socket.on('newSocket', (newSocket)=>{
+
+        players.push(new protoPlayer(newSocket.x, newSocket.y, newSocket.id));
+
+    });
     
 
     limites = new limite(0,0,width,height,10);
@@ -44,6 +66,7 @@ function createPlayers(protPlayer){
         }else{
             
             players.push(new protoPlayer(p.x,p.y,p.id));
+
         }
     }
 }
@@ -70,4 +93,5 @@ function draw(){
         var p = playerPrincipal.b.position;
         socket.emit('update',p.x,p.y);
     }
+
 }

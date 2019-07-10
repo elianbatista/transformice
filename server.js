@@ -27,9 +27,16 @@ app.use('/', (req, res) => {
 io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
        //arrayPlayersObject.push(new player(400, 400, socket.id));
 
-       arrayPlayersObject.push(new playerProt(Math.random()*500, Math.random()*500, socket.id));
+       var newSocket = new playerProt(Math.random()*500, Math.random()*500, socket.id);
+
+       socket.broadcast.emit('newSocket', newSocket);
+
+       arrayPlayersObject.push(newSocket);
 
        socket.emit('mensagem', arrayPlayersObject);
+
+       console.log(arrayPlayersObject);
+
        socket.on('disconnect', function(){
 
               console.log("Desconectou: " + socket.id);
@@ -43,12 +50,25 @@ io.on('connection', (socket)=>{ //TODA VEZ QUE UM NOVO CLIENTE CONECTAR
                      }
 
               }
-              console.log(arrayPlayersObject);
+              
 
        });
+
        socket.on('update', (playerX, playerY)=> {
 
-              console.log(playerX, playerY);
+              for(var i = 0; i < arrayPlayersObject.length; i++){
+
+                     if(arrayPlayersObject[i]['id'] == socket.id){
+
+                            arrayPlayersObject[i]['x'] = playerX;
+
+                            arrayPlayersObject[i]['y'] = playerY;
+
+                     }
+
+                     socket.broadcast.emit('updatePositions', socket.id, playerX, playerY);
+
+              }
 
        });
 
